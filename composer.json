@@ -1,0 +1,9 @@
+{
+    "name": "dimitry/hotel-manager-lyon_2022",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {}
+}
