@@ -1,7 +1,6 @@
 <?php
 namespace App\Models;
 
-/** Class User **/
 class Model {
 
     public function __call($name, $arguments)
@@ -11,6 +10,7 @@ class Model {
 
     public function __construct(){
         foreach (func_get_args() as $arg){
+            $this->$arg = null;
             $getter = "get".ucfirst($arg);
             $setter = "set".ucfirst($arg);
             $getMethod = (function() use ($arg){

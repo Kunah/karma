@@ -7,6 +7,6 @@ require '../vendor/autoload.php';
 require SRC . 'helper.php';
 
 $router = new App\Router($_SERVER["REQUEST_URI"]);
-$router->get('/', "UserController@index");
+$router->get('/', "Controller@index");
 
 $router->run();
