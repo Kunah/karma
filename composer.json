@@ -1,5 +1,5 @@
 {
-    "name": "kunah/mv-boilerplate",
+    "name": "kunah/mvc-boilerplate",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
