@@ -1,5 +1,5 @@
 {
-    "name": "dimitry/hotel-manager-lyon_2022",
+    "name": "kunah/mv-boilerplate",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
