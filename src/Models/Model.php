@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 class Model {
@@ -8,16 +9,21 @@ class Model {
         return call_user_func($this->{$name}, $arguments);
     }
 
+    function getvars()
+    {
+        $reflection = new \ReflectionClass($this);
+        return $reflection->getProperties(\ReflectionProperty::IS_PROTECTED);
+    }
+
     public function __construct(){
-        foreach (func_get_args() as $arg){
-            $this->$arg = null;
-            $getter = "get".ucfirst($arg);
-            $setter = "set".ucfirst($arg);
+        foreach ($this->getvars() as $arg){
+            $getter = "get".ucfirst($arg->getName());
+            $setter = "set".ucfirst($arg->getName());
             $getMethod = (function() use ($arg){
-                return $this->$arg;
+                return $this->{$arg->getName()};
             });
             $setMethod = (function($param) use ($arg){
-                $this->$arg = $param;
+                $this->{$arg->getName()} = $param;
             });
 
             $this->{$getter} = $getMethod;
