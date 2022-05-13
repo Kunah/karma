@@ -29,7 +29,6 @@ class Router {
         if(!isset($this->routes[$_SERVER['REQUEST_METHOD']])){
             throw new \Exception('REQUEST_METHOD does not exist');
         }
-        //boucle pour vérfier POST ou GET
         foreach($this->routes[$_SERVER['REQUEST_METHOD']] as $route){
             if($route->match($this->url)){
                 return $route->call();
