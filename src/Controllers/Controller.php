@@ -15,10 +15,6 @@ class Controller
         $this->manager = new $manager();
     }
 
-    public function index(){
-        $this->render('example');
-    }
-
     public function render(string $view, array $data = []){
         extract($data);
         ob_start();
