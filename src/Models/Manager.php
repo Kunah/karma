@@ -1,13 +1,11 @@
 <?php
 
-
 namespace App\Models;
 
 use Exception;
 
 class Manager
 {
-
     public function __construct(){
         $this->classname = str_replace("Manager", "", str_replace("App\\Models\\", "", get_class($this)));
         try {

@@ -1,12 +1,10 @@
 <?php
 
-
 namespace App\Controllers;
 
 
 class Controller
 {
-
     protected $manager;
 
     public function __construct(){
