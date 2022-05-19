@@ -1,11 +1,12 @@
 <?php
 
+require '../vendor/autoload.php';
+require '../src/config/config.php';
 session_start();
 
-require '../src/config/config.php';
-require '../vendor/autoload.php';
+use App\Controllers\ExampleController;
+use App\Router;
 
-$router = new App\Router($_SERVER["REQUEST_URI"]);
-$router->get('/', "ExampleController@index");
-
-$router->run();
+Router::get('/', [ExampleController::class, "index2"]);
+Router::get('/:param', [ExampleController::class, "index"]);
+Router::run();

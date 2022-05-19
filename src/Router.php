@@ -3,38 +3,33 @@ namespace App;
 
 //use App\Controllers\UserController;
 /** Class Router **/
-
+        
 class Router {
 
-    private $url;
-    private $routes = [];
+    private static $routes = [];
 
-    public function __construct($url){
-        $this->url = $url;
-    }
-
-    public function get($path, $callable) {
+    public static function get($path, $callable) {
         $route = new Route($path, $callable);
-        $this->routes["GET"][] = $route;
+        Router::$routes["GET"][] = $route;
         return $route;
     }
 
-    public function post($path, $callable) {
+    public static function post($path, $callable) {
         $route = new Route($path, $callable);
-        $this->routes["POST"][] = $route;
+        Router::$routes["POST"][] = $route;
         return $route;
     }
 
-    public function run() {
-        if(!isset($this->routes[$_SERVER['REQUEST_METHOD']])){
+    public static function run() { 
+
+        if(!isset(Router::$routes[$_SERVER['REQUEST_METHOD']])){
             throw new \Exception('REQUEST_METHOD does not exist');
         }
-        foreach($this->routes[$_SERVER['REQUEST_METHOD']] as $route){
-            if($route->match($this->url)){
+        foreach(Router::$routes[$_SERVER['REQUEST_METHOD']] as $route){
+            if($route->match($_SERVER['REQUEST_URI'])){
                 return $route->call();
             }
         }
-        // throw new \Exception('No matching routes');
         require VIEWS . '404.php';
     }
 

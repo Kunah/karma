@@ -1,12 +1,13 @@
 <?php
 namespace App;
 
+use Error;
+
 class Route {
 
     private $path;
     private $callable;
     private $matches = [];
-    private $params = [];
 
     public function __construct($path, $callable){
         $this->path = trim($path, '/');
@@ -26,10 +27,11 @@ class Route {
     }
 
     public function call() {
-         $rep = explode("@", $this->callable);
-         $controller = "App\\Controllers\\".$rep[0];
-         $controller = new $controller();
-        return call_user_func_array([$controller, $rep[1]], $this->matches);
+        $controller = new $this->callable[0]();
+        $method = $this->callable[1];
+        if(method_exists($controller, $method)){
+            call_user_func_array([$controller, $method], $this->matches);
+        } else echo new Error("Method {$method} doesn't exists in {$this->callable[0]} class");
     }
 
 }
