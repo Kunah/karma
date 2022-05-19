@@ -9,7 +9,7 @@ class Controller
 
     public function __construct(){
         $this->classname = str_replace("Controller", "", str_replace("App\\Controllers\\", "", get_class($this)));
-        $manager = "App\\Models\\".$this->classname."Manager";
+        $manager = "App\\Managers\\".$this->classname."Manager";
         $this->manager = new $manager();
     }
 
