@@ -1,5 +1,5 @@
 <?php
-use App\Database\Initializer as Intializer;
+use \App\Database\Initializer as Intializer;
 
 define("SRC", '../src/');
 define("CONTROLLERS", SRC.'Controllers/');
@@ -11,4 +11,4 @@ define('HOST', '127.0.0.1');
 define('DATABASE', 'example');
 define('USER', 'root');
 define('PASSWORD', '');
-define('PDO_CONNECTION', new Intializer());
+if (php_sapi_name() !== 'cli') define('PDO_CONNECTION', new Intializer());

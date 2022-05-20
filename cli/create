@@ -1,0 +1,66 @@
+#!/usr/bin/php
+<?php
+require './src/config/config.php';
+
+if (php_sapi_name() !== 'cli') {
+    exit;
+}
+
+if(method_exists(Creator::class, $command[1])){
+  call_user_func_array([Creator::class, $command[1]], [$argv[2]]);
+} else echo "Param {$command[1]} isn't supported";
+
+class Creator {
+
+  public static function createfile($path, $content){
+    $file = fopen($path, "w");
+    fwrite($file, $content);
+    fclose($file);
+  }
+
+  public static function controller($name)  {
+    $content = '<?php
+namespace App\Controllers;
+
+class '.$name.'Controller extends Controller
+{
+  public function index(){
+    $this->render("your_view_name");
+  }
+}';
+    Creator::createfile(substr(CONTROLLERS."{$name}Controller.php", 1), $content);
+  }
+
+  public static function manager($name){
+    $content = '<?php
+
+namespace App\Managers;
+
+class '.$name.'Manager extends Manager
+{
+
+};';
+    Creator::createfile(substr(MANAGERS."{$name}Manager.php", 1), $content);
+  }
+
+  public static function model($name){
+    $content = '<?php
+
+namespace App\Models;
+
+class '.$name.' extends Model {
+
+  protected static $table = "example_table_name"; // Optional param
+  // Just set the name of each SQL table column and accessors will automatically be generated
+  protected $example;
+
+}';
+    Creator::createfile(substr(MODELS."{$name}.php", 1), $content);
+  }
+
+  public static function all($name){
+    Creator::controller($name);
+    Creator::manager($name);
+    Creator::model($name);
+  }
+}

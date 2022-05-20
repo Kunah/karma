@@ -2,10 +2,15 @@
 
 namespace App\Managers;
 
+use App\Models\Example;
+
 class ExampleManager extends Manager
 {
-    // Use $this->query() to do your SQL queries
     public function getData($param){
         return ($param ? "success_test" : "error_test");
+    }
+
+    public function test(){
+        return Example::delete('id_user=5441');
     }
 };

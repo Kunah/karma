@@ -69,6 +69,22 @@ class Model {
         }
     }
 
+    public static function delete(string $selector, array $params = []){
+        try {
+            $class = get_called_class();
+            $reflector = new \ReflectionClass($class);
+            $props = $reflector->getStaticProperties();
+            $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
+            $stmt = PDO_CONNECTION->db->prepare("DELETE FROM {$table} WHERE {$selector}");
+            $stmt->execute($params);
+            $stmt->closeCursor();
+            return "success";
+    
+        } catch(\PDOException $e) {
+            die(new \PDOException($e->getMessage(), (int)$e->getCode()));
+        }
+    }
+
     public static function create(array $data = []){
         try {
             $class = get_called_class();
