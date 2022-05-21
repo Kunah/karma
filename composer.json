@@ -6,6 +6,8 @@
         }
     },
     "require": {
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "symfony/debug": "^4.4",
+        "tracy/tracy": "^2.9"
     }
 }

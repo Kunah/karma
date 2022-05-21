@@ -1,0 +1,45 @@
+body, #tracy-bs,.tracy-sortable>tbody>tr, .tracy-dump.tracy-light {
+  background: #0f172a !important
+}
+
+.tracy-bs-main {
+  padding-bottom: 0 !important;
+}
+
+.tracy-section-panel{
+  background-color: #1e293b !important;
+  color: #cbd5e1 !important;
+}
+
+.tracy-code, .tracy-sortable, .tracy-callstack-args {
+  background-color: #0f172a !important;
+  border: solid 2px #64748b !important;
+  border-radius: 10px !important;
+}
+
+.tracy-inner-container>.tracy-sortable>tbody>tr>td:first-of-type, .tracy-InfoPanel-packages>.tracy-sortable>tbody>tr>td:first-of-type {
+  color: #fff !important;
+}
+
+.tracy-panel.tracy-panel-persist.tracy-panel-main.tracy-mode-float, .tracy-panel.tracy-panel-persist.tracy-panel-main.tracy-mode-peek {
+  background-color: #1e293b !important;
+}
+
+.tracy-panel.tracy-panel-persist.tracy-panel-main.tracy-mode-float>h1, .tracy-panel.tracy-panel-persist.tracy-panel-main.tracy-mode-peek>h1,
+.tracy-inner-container>.tracy-sortable>tbody>tr>td:last-of-type, .tracy-InfoPanel-packages>.tracy-sortable>tbody>tr>td:last-of-type,
+.tracy-dump-string,
+span[style="color: #D24; font-weight: bold"] {
+  color: #3b82f6 !important;
+}
+
+.tracy-line-highlight, .tracy-section.tracy-section--error, #tracy-bs-toggle {
+  background-color: #3b82f6 !important;
+}
+
+span[style="color: #000"] {
+  color: #93c5fd !important;
+} 
+
+footer {
+  display: none !important;
+}
