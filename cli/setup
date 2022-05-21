@@ -5,8 +5,32 @@ require './src/config/config.php';
 if (php_sapi_name() !== 'cli') {
     exit;
 }
-$port = "8000";
-if(isset($argv[2])) $port = $argv[2];
 
 exec("composer install");
 exec("composer dump-autoload");
+
+function createfile($path, $content){
+    $file = fopen($path, "w");
+    fwrite($file, $content);
+    fclose($file);
+}
+
+$layout = '<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>App</title>
+    '.(isset($argv[2]) && $argv[2] == "tailwind" ? "<script src='https://cdn.tailwindcss.com'></script>" : "").'
+    '.(isset($argv[2]) && $argv[2] == "fontawesome" ? "<script src='https://kit.fontawesome.com/c1d0ab37d6.js' crossorigin='anonymous'></script>" : "").'
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main>
+        <?php echo $content ?>
+    </main>
+</body>
+</html>';
+
+createfile(substr(VIEWS."layout.php", 1), $layout);

@@ -8,6 +8,6 @@ use Tracy\Debugger;
 use App\Http\Router;
 
 Debugger::$customCssFiles[] = __DIR__.'/error.css';
-Debugger::$productionMode = false; // Set it to true when your project is in production
+Debugger::$productionMode = MODE == "production";
 Debugger::enable();
 Router::run();

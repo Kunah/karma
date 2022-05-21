@@ -1,6 +1,10 @@
 <?php
 use \App\Database\Initializer as Intializer;
 
+define("MODE", "development"); // Set it to "production" if your project is in production mode
+
+define('APP_NAME', "App");
+
 define("SRC", '../src/');
 define("CONTROLLERS", SRC.'Controllers/');
 define("MODELS", SRC.'Models/');
