@@ -2,7 +2,6 @@
 
 namespace App\Managers;
 
-
 class Manager
 {
     public function __construct(){
