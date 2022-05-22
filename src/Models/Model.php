@@ -37,72 +37,67 @@ class Model {
     }
 
     public static function all(){
-        try {
-            $class = get_called_class();
-            $reflector = new \ReflectionClass($class);
-            $props = $reflector->getStaticProperties();
-            $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
-            $stmt = PDO_CONNECTION->db->query("SELECT * FROM {$table}");
-            $result = $stmt->fetchAll(\PDO::FETCH_CLASS, $class);
-            $stmt->closeCursor();
-            return $result;
-    
-        } catch(\PDOException $e) {
-            die(new \PDOException($e->getMessage(), (int)$e->getCode()));
-        }
+        $class = get_called_class();
+        $reflector = new \ReflectionClass($class);
+        $props = $reflector->getStaticProperties();
+        $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
+        $stmt = PDO_CONNECTION->db->query("SELECT * FROM {$table}");
+        $result = $stmt->fetchAll(\PDO::FETCH_CLASS, $class);
+        $stmt->closeCursor();
+        return $result;
     }
 
     public static function find(string $selector, array $params = []){
-        try {
-            $class = get_called_class();
-            $reflector = new \ReflectionClass($class);
-            $props = $reflector->getStaticProperties();
-            $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
-            $stmt = PDO_CONNECTION->db->prepare("SELECT * FROM {$table} WHERE {$selector}");
-            $stmt->execute($params);
-            $result = $stmt->fetchAll(\PDO::FETCH_CLASS, $class);
-            $stmt->closeCursor();
-            return $result;
-    
-        } catch(\PDOException $e) {
-            die(new \PDOException($e->getMessage(), (int)$e->getCode()));
-        }
+        $class = get_called_class();
+        $reflector = new \ReflectionClass($class);
+        $props = $reflector->getStaticProperties();
+        $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
+        $stmt = PDO_CONNECTION->db->prepare("SELECT * FROM {$table} WHERE {$selector}");
+        $stmt->execute($params);
+        $result = $stmt->fetchAll(\PDO::FETCH_CLASS, $class);
+        $stmt->closeCursor();
+        return $result;
     }
 
     public static function delete(string $selector, array $params = []){
-        try {
-            $class = get_called_class();
-            $reflector = new \ReflectionClass($class);
-            $props = $reflector->getStaticProperties();
-            $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
-            $stmt = PDO_CONNECTION->db->prepare("DELETE FROM {$table} WHERE {$selector}");
-            $stmt->execute($params);
-            $stmt->closeCursor();
-            return "success";
-    
-        } catch(\PDOException $e) {
-            die(new \PDOException($e->getMessage(), (int)$e->getCode()));
-        }
+        $class = get_called_class();
+        $reflector = new \ReflectionClass($class);
+        $props = $reflector->getStaticProperties();
+        $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
+        $stmt = PDO_CONNECTION->db->prepare("DELETE FROM {$table} WHERE {$selector}");
+        $stmt->execute($params);
+        $stmt->closeCursor();
+        return "success";
     }
 
     public static function create(array $data = []){
-        try {
-            $class = get_called_class();
-            $reflector = new \ReflectionClass($class);
-            $props = $reflector->getStaticProperties();
-            $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
-            $cols = PDO_CONNECTION->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='{$table}';")->fetchAll();
-            $query = "INSERT INTO `{$table}` (";
-            $values = "(";
-            foreach($cols as $col){
-                $query = $query."`{$col['COLUMN_NAME']}`,";
-                $values = $values.(gettype($data[$col['COLUMN_NAME']]) == "string" ? "'{$data[$col['COLUMN_NAME']]}'" : $data[$col['COLUMN_NAME']]).',';
-            }
-            $query = rtrim($query, ',').") VALUES ".rtrim($values, ',').")";
-            return PDO_CONNECTION->db->query($query);
-        } catch(\PDOException $e) {
-            die(new \PDOException($e->getMessage(), (int)$e->getCode()));
+        $class = get_called_class();
+        $reflector = new \ReflectionClass($class);
+        $props = $reflector->getStaticProperties();
+        $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
+        $cols = PDO_CONNECTION->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='{$table}';")->fetchAll();
+        $query = "INSERT INTO `{$table}` (";
+        $values = "(";
+        foreach($cols as $col){
+            $query = $query."`{$col['COLUMN_NAME']}`,";
+            $values = $values.(gettype($data[$col['COLUMN_NAME']]) == "string" ? "'{$data[$col['COLUMN_NAME']]}'" : $data[$col['COLUMN_NAME']]).',';
         }
+        $query = rtrim($query, ',').") VALUES ".rtrim($values, ',').")";
+        return PDO_CONNECTION->db->query($query);
+    }
+
+    public static function update(string $selector, array $data = []){
+        $class = get_called_class();
+        $reflector = new \ReflectionClass($class);
+        $props = $reflector->getStaticProperties();
+        $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
+        $query = "UPDATE `{$table}` SET ";
+        foreach($data as $k=>$v){
+            $query = $query."`{$k}` = ".(gettype($v) == "string" ? "'{$v}'" : $v).",";
+        }
+        $query = rtrim($query, ',');
+        $query = $query." WHERE {$selector}";
+        return PDO_CONNECTION->db->query($query);
     }
 
 }

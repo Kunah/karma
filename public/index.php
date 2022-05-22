@@ -9,5 +9,6 @@ use App\Http\Router;
 
 Debugger::$customCssFiles[] = __DIR__.'/error.css';
 Debugger::$productionMode = MODE == "production";
+Debugger::$strictMode = true;
 Debugger::enable();
 Router::run();
