@@ -3,7 +3,7 @@
 ## Install
 ```bash
 $ git clone https://github.com/Kunah/karma.git
-$ php karma setup
+$ php karma setup tailwind
 ```
 Now your app is correctly installed, vendors are installed, autoload is dumped
 
