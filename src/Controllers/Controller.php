@@ -5,13 +5,6 @@ namespace App\Controllers;
 
 class Controller
 {
-    protected $manager;
-
-    public function __construct(){
-        $this->classname = str_replace("Controller", "", str_replace("App\\Controllers\\", "", get_class($this)));
-        $manager = "App\\Managers\\".$this->classname."Manager";
-        $this->manager = new $manager();
-    }
 
     public function render(string $view, array $data = []){
         extract($data);

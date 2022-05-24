@@ -31,18 +31,6 @@ class '.$name.'Controller extends Controller
     Creator::createfile(substr(CONTROLLERS."{$name}Controller.php", 1), $content);
   }
 
-  public static function manager($name){
-    $content = '<?php
-
-namespace App\Managers;
-
-class '.$name.'Manager extends Manager
-{
-
-};';
-    Creator::createfile(substr(MANAGERS."{$name}Manager.php", 1), $content);
-  }
-
   public static function model($name){
     $content = '<?php
 
@@ -60,7 +48,6 @@ class '.$name.' extends Model {
 
   public static function all($name){
     Creator::controller($name);
-    Creator::manager($name);
     Creator::model($name);
   }
 }

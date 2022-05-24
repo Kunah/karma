@@ -8,8 +8,8 @@
         <p>All the karma commands you want to run have to respect this structure <code class="bg-slate-800 p-1 rounded text-base">php karma &lt;command&gt;</code></p>
         <ul class="list-disc list-inside ml-6">
             <li><code class="bg-slate-800 p-1 rounded text-base">start &lt;port (default: 8000)&gt;</code> Runs your app</li>
-            <li><code class="bg-slate-800 p-1 rounded text-base">create:&lt;type ([controller | manager | model | all] required)&gt; &lt;name&gt;</code> Creates a file with code preset, depends of the type you choose</li>
-            <li><code class="bg-slate-800 p-1 rounded text-base">setup &lt;extension ([tailwind | fontawesome] optional)&gt;</code> Sets your app up, install deps, configures autoload, and add extensions you choose to your layout view</li>
+            <li><code class="bg-slate-800 p-1 rounded text-base">create:&lt;type ([controller | model | all] required)&gt; &lt;name&gt;</code> Creates a file with code preset, depends of the type you choose</li>
+            <li><code class="bg-slate-800 p-1 rounded text-base">setup &lt;extension ([(tailwind|tw)-(fontawesome|fa)-(jquery)] optional)&gt;</code> Sets your app up, install deps, configures autoload, and add extensions you choose to your layout view</li>
         </ul>
     </div>
 
