@@ -15,15 +15,44 @@ function createfile($path, $content){
     fclose($file);
 }
 
+$str = "";
+if(isset($argv[2])){
+    $module_names = [
+        "tw" => "tailwind",
+        "tailwind" => "tailwind",
+        "fa" => "fontawesome",
+        "fontawesome" => "fontawesome",
+        "jquery" => "jquery"
+    ];
+    $module_tags = [
+        "tailwind" => "<script src='https://cdn.tailwindcss.com'></script>",
+        "fontawesome" => "<script src='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/js/all.min.js'></script>",
+        "jquery" => "<script src='https://code.jquery.com/jquery-3.6.0.min.js' integrity='sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=' crossorigin='anonymous'></script>",
+    ];
+    $modules = explode("-", $argv[2]);
+    $keys = array_keys($module_names);
+
+    foreach($modules as $module){
+        if(in_array($module, $keys)){
+            $str = $str."\n".$module_tags[$module_names[$module]];
+            echo "Including $module_names[$module]...\n";
+        }
+        else die("Package $module not supported");
+    };
+}
+
+
+
 $layout = '<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="title" value="'.APP_NAME.'"/> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>App</title>
-    '.(isset($argv[2]) && $argv[2] == "tailwind" ? "<script src='https://cdn.tailwindcss.com'></script>" : "").'
-    '.(isset($argv[2]) && $argv[2] == "fontawesome" ? "<script src='https://kit.fontawesome.com/c1d0ab37d6.js' crossorigin='anonymous'></script>" : "").'
+    '.$str.'
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
