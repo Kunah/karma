@@ -1,7 +1,7 @@
 <?php
 use \App\Database\Initializer as Intializer;
 
-define("MODE", "development"); // Set it to "production" if your project is in production mode
+define("MODE", "dev"); // Set it to "production" if your project is in production mode
 
 define('APP_NAME', "App");
 
