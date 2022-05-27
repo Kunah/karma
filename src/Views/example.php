@@ -18,7 +18,6 @@
         <p>To get started, run this command <code class="bg-slate-800 p-1 rounded text-base">php karma create:all <?php echo APP_NAME ?></code></p>
         <p>Go to <code class="bg-slate-800 p-1 rounded text-base"><?php echo SRC."routes/web.php" ?></code>, and add a new GET route</p>
         <p>Then move to <code class="bg-slate-800 p-1 rounded text-base"><?php echo CONTROLLERS.APP_NAME."Controller.php" ?></code>, and you can start to edit your controller</p>
-        <p>Same for manager <code class="bg-slate-800 p-1 rounded text-base"><?php echo MANAGERS.APP_NAME."Manager.php" ?></code></p>
         <p>And model <code class="bg-slate-800 p-1 rounded text-base"><?php echo MODELS.APP_NAME.".php" ?></code></p>
     </div>
 </div>
