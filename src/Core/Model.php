@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Models;
-use App\Database\DB;
+namespace App\Core;
+use App\Core\Database\DB;
 
 class Model {
 

@@ -1,6 +1,5 @@
 <?php
-namespace App\Database;
-use Exception;
+namespace App\Core\Database;
 
 class Initializer {
 

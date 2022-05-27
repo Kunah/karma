@@ -1,5 +1,5 @@
 <?php
-use \App\Database\Initializer as Intializer;
+use App\Core\Database\Initializer as Intializer;
 
 define("MODE", "dev"); // Set it to "production" if your project is in production mode
 

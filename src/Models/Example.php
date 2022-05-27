@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Core\Model;
 
 class Example extends Model {
     protected static $table = "example_table_name";
