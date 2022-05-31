@@ -75,7 +75,7 @@ class Model {
         $reflector = new \ReflectionClass($class);
         $props = $reflector->getStaticProperties();
         $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
-        $cols = PDO_CONNECTION->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='{$table}';")->fetchAll();
+        $cols = PDO_CONNECTION->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='".DATABASE."' TABLE_NAME='{$table}';")->fetchAll();
         $query = "INSERT INTO `{$table}` (";
         $values = "(";
         foreach($cols as $col){
