@@ -34,6 +34,14 @@ class Model {
             $this->{$getter} = $getMethod;
             $this->{$setter} = $setMethod;
         }
+        if(isset($props['joins'])) {
+            foreach ($props['joins'] as $column => $table) {
+                $this->{$table} = (function() use ($table, $column) {
+                    $className = "App\\Models\\".ucfirst($table);
+                    return call_user_func_array([$className, "find"], ["$column = :$column", ["$column" => $this->{'get'.ucfirst($column)}()]])[0];
+                });
+            }
+        }
     }
 
     public static function all(){
@@ -75,7 +83,7 @@ class Model {
         $reflector = new \ReflectionClass($class);
         $props = $reflector->getStaticProperties();
         $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
-        $cols = PDO_CONNECTION->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='".DATABASE."' TABLE_NAME='{$table}';")->fetchAll();
+        $cols = PDO_CONNECTION->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '".DATABASE."' AND TABLE_NAME='{$table}';")->fetchAll();
         $query = "INSERT INTO `{$table}` (";
         $values = "(";
         foreach($cols as $col){
