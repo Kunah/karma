@@ -3,7 +3,7 @@
 namespace App\Core;
 use App\Core\Database\DB;
 
-class Model {
+abstract class Model {
 
     public function __call($name, $arguments)
     {
@@ -49,7 +49,7 @@ class Model {
         $reflector = new \ReflectionClass($class);
         $props = $reflector->getStaticProperties();
         $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
-        $stmt = PDO_CONNECTION->db->query("SELECT * FROM {$table}");
+        $stmt = $_ENV['pdo']->db->query("SELECT * FROM {$table}");
         $result = $stmt->fetchAll(\PDO::FETCH_CLASS, $class);
         $stmt->closeCursor();
         return $result;
@@ -60,7 +60,7 @@ class Model {
         $reflector = new \ReflectionClass($class);
         $props = $reflector->getStaticProperties();
         $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
-        $stmt = PDO_CONNECTION->db->prepare("SELECT * FROM {$table} WHERE {$selector}");
+        $stmt = $_ENV['pdo']->db->prepare("SELECT * FROM {$table} WHERE {$selector}");
         $stmt->execute($params);
         $result = $stmt->fetchAll(\PDO::FETCH_CLASS, $class);
         $stmt->closeCursor();
@@ -72,7 +72,7 @@ class Model {
         $reflector = new \ReflectionClass($class);
         $props = $reflector->getStaticProperties();
         $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
-        $stmt = PDO_CONNECTION->db->prepare("DELETE FROM {$table} WHERE {$selector}");
+        $stmt = $_ENV['pdo']->db->prepare("DELETE FROM {$table} WHERE {$selector}");
         $stmt->execute($params);
         $stmt->closeCursor();
         return "success";
@@ -83,7 +83,7 @@ class Model {
         $reflector = new \ReflectionClass($class);
         $props = $reflector->getStaticProperties();
         $table = isset($props['table']) ? $props['table'] : str_replace("App\\Models\\", "", $class);
-        $cols = PDO_CONNECTION->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '".DATABASE."' AND TABLE_NAME='{$table}';")->fetchAll();
+        $cols = $_ENV['pdo']->db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '".DATABASE."' AND TABLE_NAME='{$table}';")->fetchAll();
         $query = "INSERT INTO `{$table}` (";
         $values = "(";
         foreach($cols as $col){
@@ -91,7 +91,7 @@ class Model {
             $values = $values.(gettype($data[$col['COLUMN_NAME']]) == "string" ? "'{$data[$col['COLUMN_NAME']]}'" : $data[$col['COLUMN_NAME']]).',';
         }
         $query = rtrim($query, ',').") VALUES ".rtrim($values, ',').")";
-        return PDO_CONNECTION->db->query($query);
+        return $_ENV['pdo']->db->query($query);
     }
 
     public static function update(string $selector, array $data = []){
@@ -105,7 +105,7 @@ class Model {
         }
         $query = rtrim($query, ',');
         $query = $query." WHERE {$selector}";
-        return PDO_CONNECTION->db->query($query);
+        return $_ENV['pdo']->db->query($query);
     }
 
 }

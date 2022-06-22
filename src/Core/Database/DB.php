@@ -8,7 +8,7 @@ class DB {
   public function __construct($table)
   {
     $this->table = $table;
-    $this->db = PDO_CONNECTION->db;
+    $this->db = $_ENV['pdo']->db;
   }
 
   public static function table($table){
@@ -26,7 +26,7 @@ class DB {
   }
 
   public static function query(string $query, array $params = [], $fetch_class = ""){
-    $stmt = PDO_CONNECTION->db->prepare($query);
+    $stmt = $_ENV['pdo']->db->prepare($query);
     $stmt->execute($params);
     if($fetch_class !== ""){
       $result = $stmt->fetchAll(\PDO::FETCH_CLASS, $fetch_class);

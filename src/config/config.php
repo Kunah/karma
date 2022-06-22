@@ -15,4 +15,4 @@ define('HOST', '127.0.0.1');
 define('DATABASE', 'example');
 define('USER', 'root');
 define('PASSWORD', '');
-if (php_sapi_name() !== 'cli') define('PDO_CONNECTION', new Intializer());
+if (php_sapi_name() !== 'cli') $_ENV["pdo"] = new Intializer();

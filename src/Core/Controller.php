@@ -2,7 +2,7 @@
 
 namespace App\Core;
 
-class Controller
+abstract class Controller
 {
 
     public function render(string $view, array $data = []){

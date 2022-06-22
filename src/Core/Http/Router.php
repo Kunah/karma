@@ -17,7 +17,7 @@ class Router {
         return $route;
     }
 
-    public static function run() { 
+    public static function run() {
 
         if(!isset(Router::$routes[$_SERVER['REQUEST_METHOD']])){
             throw new \Exception('REQUEST_METHOD does not exist');
