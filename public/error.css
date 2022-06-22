@@ -1,3 +1,7 @@
+/*---------------------------------------\
+|---------- Debbuger CSS Page  ----------|
+\---------------------------------------*/
+
 body, #tracy-bs,.tracy-sortable>tbody>tr, .tracy-dump.tracy-light {
   background: #0f172a !important
 }

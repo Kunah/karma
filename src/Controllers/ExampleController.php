@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 use App\Core\Controller;
-use App\Models\Example;
 
 class ExampleController extends Controller
 {
