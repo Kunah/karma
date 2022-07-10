@@ -3,7 +3,7 @@
 ## Install
 ```bash
 $ git clone https://github.com/Kunah/karma.git
-$ php karma setup tailwind-jquery
+$ php karma setup tw-jquery
 ```
 Now your app is correctly installed, vendors are installed, autoload is dumped
 
@@ -11,7 +11,7 @@ Now your app is correctly installed, vendors are installed, autoload is dumped
 ```bash
 $ php karma start
 ```
-Your app is running on port 8000 by default, you can change it by adding the port at the end of the start command: 
+Your app is running on port 8000, you can change it by adding the port at the end of the start command: 
 ```bash
 $ php karma start <port>
 ```
